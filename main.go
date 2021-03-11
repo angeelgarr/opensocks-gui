@@ -41,6 +41,7 @@ func main() {
 		config.ServerAddr = serverAddr.Text
 		config.Username = username.Text
 		config.Password = password.Text
+		config.Wss = true
 		if config.LocalAddr == "" || config.ServerAddr == "" {
 			msg.Text = "addr can't be empty!"
 			return
