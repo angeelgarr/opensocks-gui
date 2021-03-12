@@ -11,14 +11,15 @@ import (
 	"fyne.io/fyne/app"
 	"fyne.io/fyne/theme"
 	"fyne.io/fyne/widget"
+	"github.com/net-byte/opensocks-gui/static"
 	"github.com/net-byte/opensocks/client"
 	"github.com/net-byte/opensocks/config"
 )
 
 func main() {
 	app := app.New()
-	icon, _ := fyne.LoadResourceFromPath("icon.png")
-	app.SetIcon(icon)
+
+	app.SetIcon(static.IconPng)
 	win := app.NewWindow("openscoks-gui")
 	win.Resize(fyne.NewSize(320, 150))
 	config := loadConfig()
