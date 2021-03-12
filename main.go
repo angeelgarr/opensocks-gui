@@ -17,6 +17,8 @@ import (
 
 func main() {
 	app := app.New()
+	icon, _ := fyne.LoadResourceFromPath("icon.png")
+	app.SetIcon(icon)
 	win := app.NewWindow("openscoks-gui")
 	win.Resize(fyne.NewSize(320, 150))
 	config := loadConfig()
