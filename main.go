@@ -39,6 +39,7 @@ func main() {
 			widget.NewFormItem("password:", password),
 		},
 	}
+	tapped := false
 	connectBtn := widget.NewButtonWithIcon("connect", theme.MailSendIcon(), func() {
 		var err error
 		config.LocalAddr = localAddr.Text
@@ -60,10 +61,16 @@ func main() {
 			msg.Text = "error server addr format!"
 			return
 		}
+		if tapped {
+			msg.Text = "already connected!"
+			return
+		}
 		go client.Start(config)
 		msg.Text = "successfully connected!"
 		saveConfig(config)
+		tapped = true
 	})
+
 	exitBtn := widget.NewButtonWithIcon("exit", theme.CancelIcon(), func() {
 		win.Close()
 	})
