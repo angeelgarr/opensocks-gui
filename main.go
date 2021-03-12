@@ -1,7 +1,11 @@
 package main
 
 import (
+	"encoding/json"
+	"io/ioutil"
+	"log"
 	"net"
+	"os"
 
 	"fyne.io/fyne"
 	"fyne.io/fyne/app"
@@ -15,14 +19,15 @@ func main() {
 	app := app.New()
 	win := app.NewWindow("openscoks-gui")
 	win.Resize(fyne.NewSize(320, 150))
+	config := loadConfig()
 	localAddr := widget.NewEntry()
-	localAddr.Text = "127.0.0.1:1081"
+	localAddr.Text = config.LocalAddr
 	serverAddr := widget.NewEntry()
-	serverAddr.Text = "example.com:443"
+	serverAddr.Text = config.ServerAddr
 	username := widget.NewEntry()
-	username.Text = "admin"
+	username.Text = config.Username
 	password := widget.NewPasswordEntry()
-	password.Text = "pass@123456"
+	password.Text = config.Password
 
 	appName := widget.NewLabelWithStyle("OpenSocks v1.0.0", fyne.TextAlignCenter, fyne.TextStyle{})
 	msg := widget.NewLabelWithStyle("", fyne.TextAlignCenter, fyne.TextStyle{})
@@ -36,7 +41,6 @@ func main() {
 	}
 	connectBtn := widget.NewButtonWithIcon("connect", theme.MailSendIcon(), func() {
 		var err error
-		config := config.Config{}
 		config.LocalAddr = localAddr.Text
 		config.ServerAddr = serverAddr.Text
 		config.Username = username.Text
@@ -57,8 +61,8 @@ func main() {
 			return
 		}
 		go client.Start(config)
-		msg.Text = "connect successfully!"
-
+		msg.Text = "successfully connected!"
+		saveConfig(config)
 	})
 	exitBtn := widget.NewButtonWithIcon("exit", theme.CancelIcon(), func() {
 		win.Close()
@@ -68,4 +72,29 @@ func main() {
 
 	win.SetContent(box)
 	win.ShowAndRun()
+}
+
+func loadConfig() config.Config {
+	var result config.Config
+	jsonFile, err := os.Open("./config.json")
+	if err != nil {
+		log.Println(err)
+		//set default config
+		result = config.Config{}
+		result.LocalAddr = "127.0.0.1:1081"
+		result.ServerAddr = "example.com:443"
+		result.Username = "admin"
+		result.Password = "pass@123456"
+		result.Wss = true
+		return result
+	}
+	defer jsonFile.Close()
+	byteValue, _ := ioutil.ReadAll(jsonFile)
+	json.Unmarshal([]byte(byteValue), &result)
+	return result
+}
+
+func saveConfig(config config.Config) {
+	file, _ := json.MarshalIndent(config, "", " ")
+	_ = ioutil.WriteFile("./config.json", file, 0644)
 }
