@@ -31,6 +31,13 @@ func main() {
 	username.Text = config.Username
 	password := widget.NewPasswordEntry()
 	password.Text = config.Password
+	bypass := widget.NewRadioGroup([]string{"Yes", "No"}, func(s string) {
+		if s == "Yes" {
+			config.Bypass = true
+		} else {
+			config.Bypass = false
+		}
+	})
 
 	appName := widget.NewLabelWithStyle("OpenSocks v1.0.0", fyne.TextAlignCenter, fyne.TextStyle{})
 	msg := widget.NewLabelWithStyle("", fyne.TextAlignCenter, fyne.TextStyle{})
@@ -40,6 +47,7 @@ func main() {
 			widget.NewFormItem("server addr:", serverAddr),
 			widget.NewFormItem("username:", username),
 			widget.NewFormItem("password:", password),
+			widget.NewFormItem("bypass ip:", bypass),
 		},
 	}
 	tapped := false
@@ -96,6 +104,7 @@ func loadConfig() config.Config {
 		result.Username = "admin"
 		result.Password = "pass@123456"
 		result.Wss = true
+		result.Bypass = true
 		return result
 	}
 	defer jsonFile.Close()
