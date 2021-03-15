@@ -26,6 +26,8 @@ github.com/net-byte/opensocks v0.0.0-20210313094014-2051d3bdf311 h1:4y//uEr0SQrx
 github.com/net-byte/opensocks v0.0.0-20210313094014-2051d3bdf311/go.mod h1:m1QwRMAmTlNGK39XwvuR+f/7kuz+eesVyMrRBT2E478=
 github.com/net-byte/opensocks v0.0.0-20210314155438-4336c1c27dd4 h1:m7isBuIVyW92xEgO0MbOkkgrFw9ZZ96xoyNXyrXvXO4=
 github.com/net-byte/opensocks v0.0.0-20210314155438-4336c1c27dd4/go.mod h1:m1QwRMAmTlNGK39XwvuR+f/7kuz+eesVyMrRBT2E478=
+github.com/net-byte/opensocks v1.0.0 h1:qPUA0FRklxImpvY/siD3f6dGPK8I8HIpbaUhaQECY6k=
+github.com/net-byte/opensocks v1.0.0/go.mod h1:m1QwRMAmTlNGK39XwvuR+f/7kuz+eesVyMrRBT2E478=
 github.com/nfnt/resize v0.0.0-20180221191011-83c6a9932646/go.mod h1:jpp1/29i3P1S/RLdc7JQKbRpFeM1dOBd8T9ki5s+AY8=
 github.com/niemeyer/pretty v0.0.0-20200227124842-a10e7caefd8e/go.mod h1:zD1mROLANZcx1PVRCS0qkT7pwLkGfwJo4zjcN/Tysno=
 github.com/pkg/errors v0.8.0/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
