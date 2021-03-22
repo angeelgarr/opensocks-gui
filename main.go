@@ -39,7 +39,7 @@ func main() {
 		}
 	})
 
-	appName := widget.NewLabelWithStyle("OpenSocks v1.0.0", fyne.TextAlignCenter, fyne.TextStyle{})
+	appName := widget.NewLabelWithStyle("OpenSocks v1.2.0", fyne.TextAlignCenter, fyne.TextStyle{})
 	msg := widget.NewLabelWithStyle("", fyne.TextAlignCenter, fyne.TextStyle{})
 	form := &widget.Form{
 		Items: []*widget.FormItem{
