@@ -23,9 +23,8 @@ var version string = "v1.2.1"
 
 func main() {
 	app := app.New()
-
 	app.SetIcon(static.IconPng)
-	win := app.NewWindow("openscoks-gui")
+	win := app.NewWindow("openscoks-gui " + version)
 	win.Resize(fyne.NewSize(320, 150))
 	config := loadConfig()
 	localAddr := widget.NewEntry()
@@ -36,7 +35,6 @@ func main() {
 	username.Text = config.Username
 	password := widget.NewPasswordEntry()
 	password.Text = config.Password
-	appName := widget.NewLabelWithStyle("OpenSocks "+version, fyne.TextAlignCenter, fyne.TextStyle{})
 	msg := widget.NewLabelWithStyle("", fyne.TextAlignCenter, fyne.TextStyle{})
 	form := &widget.Form{
 		Items: []*widget.FormItem{
@@ -86,7 +84,7 @@ func main() {
 		win.Close()
 	})
 
-	box := widget.NewVBox(appName, form, connectBtn, exitBtn, msg)
+	box := widget.NewVBox(form, connectBtn, exitBtn, msg)
 
 	win.SetContent(box)
 	win.ShowAndRun()
@@ -104,7 +102,7 @@ func loadConfig() config.Config {
 		result.Username = "admin"
 		result.Password = "pass@123456"
 		result.Wss = true
-		result.Bypass = true
+		result.Bypass = false
 		return result
 	}
 	defer jsonFile.Close()
