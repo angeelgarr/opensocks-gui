@@ -11,10 +11,15 @@ import (
 	"fyne.io/fyne/app"
 	"fyne.io/fyne/theme"
 	"fyne.io/fyne/widget"
+	"github.com/inhies/go-bytesize"
+	"github.com/jasonlvhit/gocron"
 	"github.com/net-byte/opensocks-gui/static"
 	"github.com/net-byte/opensocks/client"
 	"github.com/net-byte/opensocks/config"
+	"github.com/net-byte/opensocks/counter"
 )
+
+var version string = "v1.2.1"
 
 func main() {
 	app := app.New()
@@ -31,15 +36,7 @@ func main() {
 	username.Text = config.Username
 	password := widget.NewPasswordEntry()
 	password.Text = config.Password
-	bypass := widget.NewRadioGroup([]string{"Yes", "No"}, func(s string) {
-		if s == "Yes" {
-			config.Bypass = true
-		} else {
-			config.Bypass = false
-		}
-	})
-
-	appName := widget.NewLabelWithStyle("OpenSocks v1.2.0", fyne.TextAlignCenter, fyne.TextStyle{})
+	appName := widget.NewLabelWithStyle("OpenSocks "+version, fyne.TextAlignCenter, fyne.TextStyle{})
 	msg := widget.NewLabelWithStyle("", fyne.TextAlignCenter, fyne.TextStyle{})
 	form := &widget.Form{
 		Items: []*widget.FormItem{
@@ -47,7 +44,6 @@ func main() {
 			widget.NewFormItem("server addr:", serverAddr),
 			widget.NewFormItem("username:", username),
 			widget.NewFormItem("password:", password),
-			widget.NewFormItem("bypass ip:", bypass),
 		},
 	}
 	tapped := false
@@ -58,6 +54,7 @@ func main() {
 		config.Username = username.Text
 		config.Password = password.Text
 		config.Wss = true
+		config.Bypass = false
 		if config.LocalAddr == "" || config.ServerAddr == "" {
 			msg.Text = "addr can't be empty!"
 			return
@@ -77,9 +74,12 @@ func main() {
 			return
 		}
 		go client.Start(config)
+
 		msg.Text = "successfully connected!"
 		saveConfig(config)
 		tapped = true
+		gocron.Every(2).Seconds().Do(task, msg)
+		gocron.Start()
 	})
 
 	exitBtn := widget.NewButtonWithIcon("exit", theme.CancelIcon(), func() {
@@ -116,4 +116,14 @@ func loadConfig() config.Config {
 func saveConfig(config config.Config) {
 	file, _ := json.MarshalIndent(config, "", " ")
 	_ = ioutil.WriteFile("./config.json", file, 0644)
+}
+
+func task(label *widget.Label) {
+	text := "download " + formatByteSize(int64(counter.TotalReadByte))
+	text += " upload " + formatByteSize(int64(counter.TotalWriteByte))
+	label.Text = text
+}
+
+func formatByteSize(size int64) string {
+	return bytesize.New(float64(size)).String()
 }
