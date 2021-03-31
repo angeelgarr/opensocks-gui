@@ -44,6 +44,8 @@ github.com/net-byte/opensocks v1.2.0 h1:sLbGT2xfBRF0vfroJJ7cZ47uY/krnFO13dS67OdD
 github.com/net-byte/opensocks v1.2.0/go.mod h1:9oONaPcBEGQ1SaRGO3Z2wNCUfIhwY+vpe5tijI4So/g=
 github.com/net-byte/opensocks v1.2.1 h1:oRRNMUCn+rjpmZG/iClowMt6ZsOnCZYp0nr9odlZAm0=
 github.com/net-byte/opensocks v1.2.1/go.mod h1:L1ijO3kWC85fooZwtQZmVTuBwEXx69uuuLhyLCNV83I=
+github.com/net-byte/opensocks v1.2.3 h1:o8aBcmzHcAtNubrW3vih81FkgVnHhsua2LBilhh9MRk=
+github.com/net-byte/opensocks v1.2.3/go.mod h1:L1ijO3kWC85fooZwtQZmVTuBwEXx69uuuLhyLCNV83I=
 github.com/nfnt/resize v0.0.0-20180221191011-83c6a9932646/go.mod h1:jpp1/29i3P1S/RLdc7JQKbRpFeM1dOBd8T9ki5s+AY8=
 github.com/niemeyer/pretty v0.0.0-20200227124842-a10e7caefd8e/go.mod h1:zD1mROLANZcx1PVRCS0qkT7pwLkGfwJo4zjcN/Tysno=
 github.com/onsi/ginkgo v1.6.0/go.mod h1:lLunBs/Ym6LB5Z9jYTR76FiuTmxDTDusOGeTQH+WWjE=
