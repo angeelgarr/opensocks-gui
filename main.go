@@ -71,6 +71,7 @@ func main() {
 			msg.Text = "already connected!"
 			return
 		}
+		config.Init()
 		go client.Start(config)
 
 		msg.Text = "successfully connected!"
