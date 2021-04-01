@@ -121,6 +121,7 @@ func task(label *widget.Label) {
 	text := "download " + formatByteSize(int64(counter.TotalReadByte))
 	text += " upload " + formatByteSize(int64(counter.TotalWriteByte))
 	label.Text = text
+	label.Refresh()
 }
 
 func formatByteSize(size int64) string {
