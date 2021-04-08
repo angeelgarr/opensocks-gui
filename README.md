@@ -8,5 +8,5 @@ cross-platform opensocks gui client for [opensocks](https://github.com/net-byte/
 ![](https://raw.githubusercontent.com/net-byte/opensocks-gui/main/demo.png)
 
 # download
-[dowload](https://github.com/net-byte/opensocks-gui/releases)
+[download](https://github.com/net-byte/opensocks-gui/releases)
 
