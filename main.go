@@ -19,7 +19,7 @@ import (
 	"github.com/net-byte/opensocks/counter"
 )
 
-var version string = "v1.2.4"
+var version string = "v1.3.0"
 
 func main() {
 	app := app.New()
