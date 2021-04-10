@@ -2,8 +2,8 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
-	"log"
 	"net"
 	"os"
 
@@ -19,12 +19,12 @@ import (
 	"github.com/net-byte/opensocks/counter"
 )
 
-var version string = "v1.3.0"
+var version string = "v1.3.3"
 
 func main() {
 	app := app.New()
 	app.SetIcon(static.IconPng)
-	win := app.NewWindow("openscoks-gui " + version)
+	win := app.NewWindow(fmt.Sprintf("openscoks-gui %v", version))
 	win.Resize(fyne.NewSize(320, 150))
 	config := loadConfig()
 	localAddr := widget.NewEntry()
@@ -71,13 +71,13 @@ func main() {
 			msg.Text = "already connected!"
 			return
 		}
-		config.Init()
+		//start client
 		go client.Start(config)
-
 		msg.Text = "successfully connected!"
 		saveConfig(config)
 		tapped = true
-		gocron.Every(2).Seconds().Do(task, msg)
+		//start shchedule task
+		gocron.Every(2).Seconds().Do(statTask, msg)
 		gocron.Start()
 	})
 
@@ -95,8 +95,7 @@ func loadConfig() config.Config {
 	var result config.Config
 	jsonFile, err := os.Open("./config.json")
 	if err != nil {
-		log.Println(err)
-		//set default config
+		// init default config
 		result = config.Config{}
 		result.LocalAddr = "127.0.0.1:1081"
 		result.ServerAddr = "example.com:443"
@@ -117,13 +116,7 @@ func saveConfig(config config.Config) {
 	_ = ioutil.WriteFile("./config.json", file, 0644)
 }
 
-func task(label *widget.Label) {
-	text := "download " + formatByteSize(int64(counter.TotalReadByte))
-	text += " upload " + formatByteSize(int64(counter.TotalWriteByte))
-	label.Text = text
+func statTask(label *widget.Label) {
+	label.Text = fmt.Sprintf("download %v upload %v", bytesize.New(float64(counter.TotalReadByte)).String(), bytesize.New(float64(counter.TotalWriteByte)).String())
 	label.Refresh()
-}
-
-func formatByteSize(size int64) string {
-	return bytesize.New(float64(size)).String()
 }
