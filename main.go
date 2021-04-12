@@ -20,7 +20,7 @@ import (
 	"github.com/net-byte/opensocks/counter"
 )
 
-var version string = "v1.3.3"
+var version string = "v1.4.0"
 
 func main() {
 	app := app.New()
@@ -32,17 +32,14 @@ func main() {
 	localAddr.Text = config.LocalAddr
 	serverAddr := widget.NewEntry()
 	serverAddr.Text = config.ServerAddr
-	username := widget.NewEntry()
-	username.Text = config.Username
-	password := widget.NewPasswordEntry()
-	password.Text = config.Password
+	key := widget.NewPasswordEntry()
+	key.Text = config.Key
 	msg := widget.NewLabelWithStyle("", fyne.TextAlignCenter, fyne.TextStyle{})
 	form := &widget.Form{
 		Items: []*widget.FormItem{
 			widget.NewFormItem("local addr:", localAddr),
 			widget.NewFormItem("server addr:", serverAddr),
-			widget.NewFormItem("username:", username),
-			widget.NewFormItem("password:", password),
+			widget.NewFormItem("key:", key),
 		},
 	}
 	tapped := false
@@ -50,8 +47,7 @@ func main() {
 		var err error
 		config.LocalAddr = localAddr.Text
 		config.ServerAddr = serverAddr.Text
-		config.Username = username.Text
-		config.Password = password.Text
+		config.Key = key.Text
 		config.Wss = true
 		config.Bypass = false
 		if config.LocalAddr == "" || config.ServerAddr == "" {
@@ -100,8 +96,7 @@ func loadConfig() config.Config {
 		result = config.Config{}
 		result.LocalAddr = "127.0.0.1:1081"
 		result.ServerAddr = "example.com:443"
-		result.Username = "admin"
-		result.Password = "pass@123456"
+		result.Key = "6w9z$C&F)J@NcRfUjXn2r4u7x!A%D*G-"
 		result.Wss = true
 		result.Bypass = false
 		return result
