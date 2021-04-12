@@ -1,6 +1,6 @@
 package static
 
-import "fyne.io/fyne"
+import "fyne.io/fyne/v2"
 
 var IconPng = &fyne.StaticResource{
 	StaticName: "icon.png",

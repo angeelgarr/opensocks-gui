@@ -7,10 +7,11 @@ import (
 	"net"
 	"os"
 
-	"fyne.io/fyne"
-	"fyne.io/fyne/app"
-	"fyne.io/fyne/theme"
-	"fyne.io/fyne/widget"
+	"fyne.io/fyne/v2"
+	"fyne.io/fyne/v2/app"
+	"fyne.io/fyne/v2/container"
+	"fyne.io/fyne/v2/theme"
+	"fyne.io/fyne/v2/widget"
 	"github.com/inhies/go-bytesize"
 	"github.com/jasonlvhit/gocron"
 	"github.com/net-byte/opensocks-gui/static"
@@ -85,7 +86,7 @@ func main() {
 		win.Close()
 	})
 
-	box := widget.NewVBox(form, connectBtn, exitBtn, msg)
+	box := container.NewVBox(form, connectBtn, exitBtn, msg)
 
 	win.SetContent(box)
 	win.ShowAndRun()
