@@ -1,7 +1,7 @@
 # opensocks-gui
 
 <p align="center">
-	<img src="https://raw.githubusercontent.com/net-byte/vTunnel/main/opensocks-gui.png" alt="opensocks-gui" width="250">
+	<img src="https://raw.githubusercontent.com/net-byte/opensocks-gui/main/Icon.png" alt="opensocks-gui" width="250">
 </p>
 
 cross-platform opensocks gui client for [opensocks](https://github.com/net-byte/opensocks)
