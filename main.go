@@ -20,7 +20,7 @@ import (
 	"github.com/net-byte/opensocks/counter"
 )
 
-var version string = "v1.4.6"
+var version string = "v1.5.0"
 
 func main() {
 	app := app.New()
@@ -48,8 +48,9 @@ func main() {
 		config.LocalAddr = localAddr.Text
 		config.ServerAddr = serverAddr.Text
 		config.Key = key.Text
-		config.Wss = true
+		config.Scheme = "wss"
 		config.Bypass = false
+		config.Init()
 		if config.LocalAddr == "" || config.ServerAddr == "" {
 			msg.Text = "addr can't be empty!"
 			return
@@ -95,9 +96,9 @@ func loadConfig() config.Config {
 		// init default config
 		result = config.Config{}
 		result.LocalAddr = "127.0.0.1:1081"
-		result.ServerAddr = "example.com:443"
+		result.ServerAddr = "demo.opensocks.org:443"
 		result.Key = "6w9z$C&F)J@NcRfUjXn2r4u7x!A%D*G-"
-		result.Wss = true
+		result.Scheme = "wss"
 		result.Bypass = false
 		return result
 	}
