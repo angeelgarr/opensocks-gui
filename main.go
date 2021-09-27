@@ -20,13 +20,14 @@ import (
 	"github.com/net-byte/opensocks/counter"
 )
 
-var version string = "v1.5.0"
+var version string = "v1.5.3"
 
 func main() {
 	app := app.New()
 	app.SetIcon(static.IconPng)
 	win := app.NewWindow(fmt.Sprintf("openscoks-gui %v", version))
-	win.Resize(fyne.NewSize(320, 150))
+	win.Resize(fyne.NewSize(400, 200))
+	win.SetFixedSize(true)
 	config := loadConfig()
 	localAddr := widget.NewEntry()
 	localAddr.Text = config.LocalAddr
@@ -34,12 +35,40 @@ func main() {
 	serverAddr.Text = config.ServerAddr
 	key := widget.NewPasswordEntry()
 	key.Text = config.Key
+	bypassRadio := widget.NewRadioGroup([]string{"Yes", "No"}, func(value string) {
+		if value == "Yes" {
+			config.Bypass = true
+		} else {
+			config.Bypass = false
+		}
+	})
+	bypassRadio.Horizontal = true
+	if config.Bypass {
+		bypassRadio.SetSelected("Yes")
+	} else {
+		bypassRadio.SetSelected("No")
+	}
+	obfuscateRadio := widget.NewRadioGroup([]string{"Yes", "No"}, func(value string) {
+		if value == "Yes" {
+			config.Obfuscate = true
+		} else {
+			config.Obfuscate = false
+		}
+	})
+	obfuscateRadio.Horizontal = true
+	if config.Obfuscate {
+		obfuscateRadio.SetSelected("Yes")
+	} else {
+		obfuscateRadio.SetSelected("No")
+	}
 	msg := widget.NewLabelWithStyle("", fyne.TextAlignCenter, fyne.TextStyle{})
 	form := &widget.Form{
 		Items: []*widget.FormItem{
 			widget.NewFormItem("local addr:", localAddr),
 			widget.NewFormItem("server addr:", serverAddr),
 			widget.NewFormItem("key:", key),
+			widget.NewFormItem("obfuscate:", obfuscateRadio),
+			widget.NewFormItem("bypass:", bypassRadio),
 		},
 	}
 	tapped := false
@@ -49,7 +78,6 @@ func main() {
 		config.ServerAddr = serverAddr.Text
 		config.Key = key.Text
 		config.Scheme = "wss"
-		config.Bypass = false
 		config.Init()
 		if config.LocalAddr == "" || config.ServerAddr == "" {
 			msg.Text = "addr can't be empty!"
@@ -100,6 +128,7 @@ func loadConfig() config.Config {
 		result.Key = "6w9z$C&F)J@NcRfUjXn2r4u7x!A%D*G-"
 		result.Scheme = "wss"
 		result.Bypass = false
+		result.Obfuscate = false
 		return result
 	}
 	defer jsonFile.Close()
