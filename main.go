@@ -24,8 +24,8 @@ var version string = "v1.5.3"
 
 func main() {
 	app := app.New()
-	app.SetIcon(static.IconPng)
-	win := app.NewWindow(fmt.Sprintf("openscoks-gui %v", version))
+	app.SetIcon(static.Icon)
+	win := app.NewWindow(fmt.Sprintf("opensocks-gui %v", version))
 	win.Resize(fyne.NewSize(400, 200))
 	win.SetFixedSize(true)
 	config := loadConfig()
@@ -110,9 +110,7 @@ func main() {
 	exitBtn := widget.NewButtonWithIcon("exit", theme.CancelIcon(), func() {
 		win.Close()
 	})
-
 	box := container.NewVBox(form, connectBtn, exitBtn, msg)
-
 	win.SetContent(box)
 	win.ShowAndRun()
 }
