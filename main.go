@@ -20,7 +20,7 @@ import (
 	"github.com/net-byte/opensocks/counter"
 )
 
-var version string = "v1.5.3"
+var version string = "v1.5.6"
 
 func main() {
 	app := app.New()
@@ -141,6 +141,6 @@ func saveConfig(config config.Config) {
 }
 
 func statTask(label *widget.Label) {
-	label.Text = fmt.Sprintf("download %v upload %v", bytesize.New(float64(counter.TotalReadByte)).String(), bytesize.New(float64(counter.TotalWriteByte)).String())
+	label.Text = fmt.Sprintf("download %v upload %v", bytesize.New(float64(counter.TotalReadBytes)).String(), bytesize.New(float64(counter.TotalWrittenBytes)).String())
 	label.Refresh()
 }
